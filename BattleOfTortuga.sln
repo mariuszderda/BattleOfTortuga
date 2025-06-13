@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "GameServer\GameServer.csproj", "{2320A2CC-A45D-4DA3-9A07-18C910799A6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9684A5-6051-4012-A4AC-EC2C01BA1A23} = {DF9684A5-6051-4012-A4AC-EC2C01BA1A23}
+		{BA4CB8BF-B8FB-499A-848D-A41208D46007} = {BA4CB8BF-B8FB-499A-848D-A41208D46007}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedData", "SharedData\SharedData.csproj", "{BA4CB8BF-B8FB-499A-848D-A41208D46007}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2320A2CC-A45D-4DA3-9A07-18C910799A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2320A2CC-A45D-4DA3-9A07-18C910799A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2320A2CC-A45D-4DA3-9A07-18C910799A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2320A2CC-A45D-4DA3-9A07-18C910799A6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA4CB8BF-B8FB-499A-848D-A41208D46007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA4CB8BF-B8FB-499A-848D-A41208D46007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA4CB8BF-B8FB-499A-848D-A41208D46007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA4CB8BF-B8FB-499A-848D-A41208D46007}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
