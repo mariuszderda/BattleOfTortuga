@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SharedData;
-using WebSocketSharp.Server;
+using SharedData.Payloads;
+using SharedData.Utils;
 
 namespace GameServer.State
 {
@@ -8,8 +9,9 @@ namespace GameServer.State
     {
         public override void SendInvitation(string playerId, string invitePlayerId)
         {
-            var invitation = new SharedObject(ActionType.InvitePlayer, playerId, invitePlayerId, Context.GameId);
-            var serializeInvitation = JsonConvert.SerializeObject(invitation);
+            var payload = new InvitationPayload(invitePlayerId);
+            var envelope = EnvelopeFactory.CreateWithPayload(ActionType.InvitePlayer, Context.GameId, playerId, invitePlayerId, payload);
+            var serializeInvitation = JsonConvert.SerializeObject(envelope);
             Context.session.SendTo(serializeInvitation, invitePlayerId);
             Context.SetState(new AcceptInviteState(Context));
         }

@@ -1,5 +1,4 @@
 ﻿using SharedData;
-using WebSocketSharp.Server;
 
 namespace GameServer.State;
 

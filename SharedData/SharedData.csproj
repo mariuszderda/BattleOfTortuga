@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
@@ -9,5 +9,19 @@
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
+
+	<Target Name="CopyToUnity" AfterTargets="Build">
+		<PropertyGroup>
+			<UnityProjectPath>D:\dev\BattleOfTortuga-unity\Assets\Scripts</UnityProjectPath>
+		</PropertyGroup>
+
+		<Message Text="Copying SharedData.dll to Unity..." Importance="high" />
+
+		<Copy SourceFiles="$(OutputPath)SharedData.dll"
+		      DestinationFolder="$(UnityProjectPath)"
+		      SkipUnchangedFiles="true" />
+
+		<Message Text="SharedData.dll copied successfully!" Importance="high" />
+	</Target>
 
 </Project>

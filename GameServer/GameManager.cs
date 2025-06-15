@@ -1,7 +1,10 @@
 ﻿using GameServer.State;
 using GameServer.Utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SharedData;
+using SharedData.Payloads;
+using SharedData.Utils;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
@@ -20,10 +23,11 @@ public class GameManager : WebSocketBehavior
     protected override void OnMessage(MessageEventArgs e)
     {
         var message = e.Data;
-        SharedObject? deserializeMessage;
+        WsEnvelope? envelope;
 
         try {
-            deserializeMessage = JsonConvert.DeserializeObject<SharedObject>(message);
+            envelope = JsonConvert.DeserializeObject<WsEnvelope>(message);
+            if (!ValidateEnvelopeAndSendErrorIfNeeded(envelope)) return;
         }
         catch (JsonException ex) {
             Console.WriteLine("Deserialize error" + ex.Message);
@@ -31,28 +35,29 @@ public class GameManager : WebSocketBehavior
             return;
         }
 
-        if (deserializeMessage == null) {
+        if (envelope == null) {
             Console.WriteLine("An empty or invalid message was received from the customer " + this.ID);
             Sessions.SendTo("Invalid message", this.ID);
             return;
         }
 
-        var context = GetOrCreateContext(deserializeMessage.GameId, Sessions);
+        var context = GetOrCreateContext(envelope.GameId, Sessions);
 
-        switch (deserializeMessage.ActionType) {
+        switch (envelope.ActionType) {
             case ActionType.InvitePlayer:
-                context.SendInvitation(deserializeMessage.Player1Id, deserializeMessage.Player2Id);
+                context.SendInvitation(envelope.Player1Id, envelope.Player2Id);
                 break;
 
             case ActionType.AcceptGame:
-                context.CreateNewGame(deserializeMessage.Player1Id, deserializeMessage.Player2Id);
+                context.CreateNewGame(envelope.Player1Id, envelope.Player2Id);
                 break;
 
             case ActionType.GetShip:
-                context.GetShip(deserializeMessage.PositionX, deserializeMessage.PositionY);
+                var payload = ExtractPayload<GetShipPayload>(envelope.Data);
+                context.GetShip(payload!.X, payload!.Y);
                 break;
 
-            case ActionType.PlayerMove:
+            case ActionType.ShipDestroyed:
                 // context.CalculateScore();
                 break;
 
@@ -82,5 +87,32 @@ public class GameManager : WebSocketBehavior
     private static string GetPlayersList()
     {
         return PlayerSerializer.SerializePlayers(PlayersManagerInstance.GetInstance().GetPlayersList());
+    }
+
+    private bool ValidateEnvelopeAndSendErrorIfNeeded(WsEnvelope? envelope)
+    {
+        if (envelope == null) {
+            Sessions.SendTo("Invalid message", this.ID);
+            return false;
+        }
+
+        if (!MessageValidator.ValidatePayload(envelope)) {
+            Sessions.SendTo("Invalid message format", this.ID);
+            return false;
+        }
+
+        return true;
+    }
+
+    private T? ExtractPayload<T>(object? data) where T : class
+    {
+        try {
+            return ((JObject)data!)?.ToObject<T>();
+        }
+        catch (Exception ex) {
+            Console.WriteLine($"Failed to extract payload {typeof(T).Name}: {ex.Message}");
+            Sessions.SendTo("Invalid payload format", this.ID);
+            return null;
+        }
     }
 }

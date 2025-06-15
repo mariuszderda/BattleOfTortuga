@@ -14,8 +14,7 @@ public class PlayersManagerInstance : IPlayerManager
 
     public static PlayersManagerInstance GetInstance()
     {
-        lock (Lock)
-        {
+        lock (Lock) {
             _instance ??= new PlayersManagerInstance();
         }
 
@@ -36,8 +35,7 @@ public class PlayersManagerInstance : IPlayerManager
     {
         var list = new ListDictionary();
 
-        foreach (var player in _players)
-        {
+        foreach (var player in _players) {
             var pl = player.Context.QueryString.Get(0);
             list.Add(player.ID, pl);
         }

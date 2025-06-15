@@ -33,7 +33,7 @@ namespace GameServer
                 }
             }
 
-            foreach (ShipColor color in new[] { ShipColor.Black, ShipColor.Red }) {
+            foreach (ShipColorType color in new[] { ShipColorType.Black, ShipColorType.Red }) {
                 var powers = new List<int>();
                 foreach (var kvp in powerCounts) {
                     for (int i = 0; i < kvp.Value; i++)

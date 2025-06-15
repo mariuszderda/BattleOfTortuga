@@ -13,8 +13,7 @@ public static class IdGenerator
     public static string GenerateId(int length = 9)
     {
         var sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++)
-        {
+        for (int i = 0; i < length; i++) {
             var idx = random.Next(chars.Length);
             sb.Append(chars[idx]);
         }

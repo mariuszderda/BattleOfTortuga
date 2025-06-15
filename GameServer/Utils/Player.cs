@@ -1,13 +1,16 @@
-﻿namespace GameServer.Utils
+﻿using SharedData;
+
+namespace GameServer.Utils
 {
     public class Player
     {
         public string Id { get; set; }
-        public string? ShipColor { get; set; }
+        public ShipColorType ShipColorType { get; set; }
 
-        public Player(string id)
+        public Player(string id, ShipColorType shipColor)
         {
             Id = id;
+            ShipColorType = shipColor;
         }
     }
 }

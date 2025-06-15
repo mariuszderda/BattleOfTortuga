@@ -16,4 +16,14 @@
       <ProjectReference Include="..\SharedData\SharedData.csproj" />
     </ItemGroup>
 
+	<Target Name="CopySharedDataToUnity" AfterTargets="Build">
+		<PropertyGroup>
+			<UnityAssetsPath>..\BattleOfTortuga-unity\Assets\Plugins</UnityAssetsPath>
+		</PropertyGroup>
+
+		<Copy SourceFiles="$(OutputPath)SharedData.dll"
+		      DestinationFolder="$(UnityAssetsPath)"
+		      SkipUnchangedFiles="true" />
+	</Target>
+
 </Project>

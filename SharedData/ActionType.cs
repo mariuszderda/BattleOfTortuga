@@ -7,11 +7,8 @@ public enum ActionType
     GameReady,
     GetShip,
     PlayerMove,
+    ShipDestroyed,
+    Score,
+    EndTurn,
     EndGame,
-}
-
-public enum ShipColor
-{
-    Black,
-    Red
 }
