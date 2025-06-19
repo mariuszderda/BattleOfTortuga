@@ -1,5 +1,6 @@
 ﻿using GameServer.Utils;
 using SharedData;
+using SharedData.Payloads;
 using WebSocketSharp.Server;
 
 namespace GameServer.State;
@@ -35,8 +36,11 @@ public class Context
     public void CreateNewGame(string player1, string player2) =>
         _currentState.CreateNewGame(player1, player2);
 
-    public void CalculateScore(Ship ship) =>
-        _currentState.CalculateScore(ship);
+    public void CalculateScore(AttackPayload shipDestroyedPayload) =>
+        _currentState.CalculateScore(shipDestroyedPayload);
+
+    public void ShipMoving(Ship ship) =>
+        _currentState.ShipMoving(ship);
 
     public void GetShip(int positionX, int positionY) =>
         _currentState.GetShip(positionX, positionY);

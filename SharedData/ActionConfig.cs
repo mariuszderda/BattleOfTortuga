@@ -8,8 +8,6 @@ namespace SharedData.Utils
         private static readonly HashSet<ActionType> NoPayloadActions = new HashSet<ActionType>
         {
             ActionType.AcceptGame,
-            ActionType.EndTurn,
-            ActionType.EndGame,
             ActionType.GameReady
         };
 
@@ -17,8 +15,11 @@ namespace SharedData.Utils
         {
             { ActionType.InvitePlayer, typeof(Payloads.InvitationPayload) },
             { ActionType.GetShip, typeof(Payloads.GetShipPayload) },
-            { ActionType.ShipDestroyed, typeof(Payloads.ShipDestroyedPayload) },
-            { ActionType.PlayerMove, typeof(Payloads.PlayerMovePayload) }
+            { ActionType.Attack, typeof(Payloads.AttackPayload) },
+            { ActionType.PlayerMove, typeof(Payloads.PlayerMovePayload) },
+            { ActionType.ShipDestroyed , typeof(Payloads.ShipDestroyedPayload)},
+            { ActionType.EndGame, typeof(Payloads.EndGamePayload)},
+            { ActionType.Error, typeof(Payloads.ErrorPayload)}
         };
 
         public static bool RequiresPayload(ActionType action)

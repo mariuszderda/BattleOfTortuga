@@ -57,8 +57,14 @@ public class GameManager : WebSocketBehavior
                 context.GetShip(payload!.X, payload!.Y);
                 break;
 
+            case ActionType.PlayerMove:
+                var movingShip = ExtractPayload<PlayerMovePayload>(envelope.Data);
+                context.ShipMoving(movingShip!.NewPosition);
+                break;
+
             case ActionType.ShipDestroyed:
-                // context.CalculateScore();
+                var shipDestroyedPayload = ExtractPayload<AttackPayload>(envelope.Data)!;
+                context.CalculateScore(shipDestroyedPayload);
                 break;
 
             default:

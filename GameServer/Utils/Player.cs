@@ -7,6 +7,8 @@ namespace GameServer.Utils
         public string Id { get; set; }
         public ShipColorType ShipColorType { get; set; }
 
+        public int PlayerScore { get; set; } = 0;
+
         public Player(string id, ShipColorType shipColor)
         {
             Id = id;

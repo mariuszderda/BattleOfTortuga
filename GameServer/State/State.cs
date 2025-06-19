@@ -1,4 +1,5 @@
 ﻿using SharedData;
+using SharedData.Payloads;
 
 namespace GameServer.State;
 
@@ -11,7 +12,9 @@ public abstract class State(Context context)
 
     public virtual void CreateNewGame(string player1, string player2) => Invalid();
 
-    public virtual void CalculateScore(Ship ship) => Invalid();
+    public virtual void CalculateScore(AttackPayload attackPayload) => Invalid();
+
+    public virtual void ShipMoving(Ship ship) => Invalid();
 
     public virtual void EndGame() => Invalid();
 

@@ -13,9 +13,6 @@ namespace SharedData.Payloads
             set { _newPosition = value; }
         }
 
-        public PlayerMovePayload()
-        { }
-
         public PlayerMovePayload(Ship newPosition)
         {
             _newPosition = newPosition;

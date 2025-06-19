@@ -7,8 +7,10 @@ public enum ActionType
     GameReady,
     GetShip,
     PlayerMove,
+    Attack,
     ShipDestroyed,
     Score,
     EndTurn,
     EndGame,
+    Error = 99,
 }
